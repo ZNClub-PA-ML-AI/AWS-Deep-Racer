@@ -1,0 +1,58 @@
+[
+  {
+    "all_wheels_on_track": false,
+    "is_crashed": false,
+    "is_left_of_center": false,
+    "is_offtrack": true,
+    "is_reversed": true,
+    "heading": -25.54,
+    "steering_angle": 150.13,
+    "speed": 1.23,
+    "progress": 10.28,
+    "track_length": 100,
+    "track_width": 10,
+    "steps": 0
+  },
+  {
+    "all_wheels_on_track": true,
+    "is_crashed": true,
+    "is_left_of_center": true,
+    "is_offtrack": true,
+    "is_reversed": true,
+    "heading": -16.64,
+    "steering_angle": -9.45,
+    "speed": 0.72,
+    "progress": 32.68,
+    "track_length": 100,
+    "track_width": 10,
+    "steps": 1
+  },
+  {
+    "all_wheels_on_track": true,
+    "is_crashed": false,
+    "is_left_of_center": true,
+    "is_offtrack": true,
+    "is_reversed": true,
+    "heading": 9.05,
+    "steering_angle": 79.52,
+    "speed": 3.84,
+    "progress": 50.77,
+    "track_length": 100,
+    "track_width": 10,
+    "steps": 2
+  },
+  {
+    "all_wheels_on_track": false,
+    "is_crashed": true,
+    "is_left_of_center": false,
+    "is_offtrack": true,
+    "is_reversed": false,
+    "heading": 162.33,
+    "steering_angle": 170.71,
+    "speed": 1.61,
+    "progress": 23.29,
+    "track_length": 100,
+    "track_width": 10,
+    "steps": 3
+  }
+]
