@@ -17,8 +17,7 @@
     progress: '{{floating(0, 100, 2, "0.00")}}',
     track_length: 100.0,
     track_width: 10.0,
-
-    steps: '{{integer(0, 300)}}'
+    steps: '{{index()}}'
   }
 ]
 </pre>
