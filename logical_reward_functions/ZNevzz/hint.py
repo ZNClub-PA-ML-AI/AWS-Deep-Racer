@@ -26,7 +26,7 @@ class Hint:
     self.heading = params['heading']
     self.steering = params['steering_angle']
     self.progress = params['progress']
-    self.center_distance = params['distance_from_center'] * (-1 if params['is_left_of_center'] else 1)
+    self.center_distance = params['distance_from_center'] * (1 if params['is_left_of_center'] else -1)
     self.is_negative_state = any([params['is_offtrack'], params['is_reversed'], params['is_crashed'], not params['all_wheels_on_track']]) 
   
   def is_fast_at_curve(self)-> bool:
