@@ -24,7 +24,7 @@ class Hint:
     self.position = (params['X'], params['Y'])
     self.speed = params['speed']
     self.heading = params['heading']
-    self.is_negative_state = any([params['is_offtrack'], params['is_reversed'], params['is_crashed'], !params['all_wheels_on_track']])
+    self.is_negative_state = any([params['is_offtrack'], params['is_reversed'], params['is_crashed'], not params['all_wheels_on_track']]) 
     
   
   def is_fast_at_curve(self)-> bool:
