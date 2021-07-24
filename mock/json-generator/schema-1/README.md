@@ -18,9 +18,7 @@
     track_length: 100.0,
     track_width: 10.0,
 
-    steps: '{{integer(0, 300)}}',
-    eyeColor: '{{random("blue", "brown", "green")}}'
-
+    steps: '{{integer(0, 300)}}'
   }
 ]
 </pre>
