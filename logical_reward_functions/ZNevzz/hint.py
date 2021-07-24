@@ -24,18 +24,27 @@ class Hint:
     self.position = (params['X'], params['Y'])
     self.speed = params['speed']
     self.heading = params['heading']
+    self.steering = params['steering_angle']
+    self.progress = params['progress']
+    self.center_distance = params['distance_from_center'] * (-1 if params['is_left_of_center'] else 1)
     self.is_negative_state = any([params['is_offtrack'], params['is_reversed'], params['is_crashed'], not params['all_wheels_on_track']]) 
-    
   
   def is_fast_at_curve(self)-> bool:
+    '''to do'''
     return True
   
-  def is_heading_towards_up(self)-> bool:
+  def get_heading_direction(direction: float)-> bool:
     '''
     The heading parameter describes the orientation of the vehicle in degrees, measured counter-clockwise from the X-axis of the coordinate system.
     '''
-    upward_direction = (5.0, 85.0)
-    return upward_direction[0] < self.heading or upward_direction[1] > self.heading
+    directions = {'UP': (5.0, 85.0), 'DOWN': (-5.0, -85.0), }
+    result = 'ANY'
+    for direction, coverage in directions.items(): 
+      if coverage[0] < direction or direction < coverage[1]:
+        result = direction
+    return result
   
+
   
-    
+ 
+     
