@@ -1,0 +1,66 @@
+# AWS Deepracer basics
+
+The agent interacts with the environment by performing an action (a) that results in a state (s). Depending on this the environment rewards the agent.
+
+## Action Types
+Discrete - eg. left, right, center, etc
+Continuous - eg. adjusting speed
+
+## Discount factor
+Determines the extent to which future rewards whould contribute to overall expected rewards
+eg. with discount facotr as 0, the agent will only care of one obstacle at a time
+with more discount facotr more, the agent will care for overall play
+
+## Policy
+Mapping between action and states
+determines what action to take given the state... similar to lookup table
+2 ways
+stochastically - probability of taking an action given a particular state
+deterministically - direct mapping between state and action (denoted by aymbol pi)
+During training the GOAL is to determine the most effective policy to maximize rewards.
+
+## Algorithms
+PPO - Proximal Policy OPtimization algorithm - uses policy(Action based on image) and value(cumulative results given input) network
+
+## Sage Maker and Robo Maker
+Sage Maker - This is the RL part of the game... it is how our car understands and trains over the reward function that we right
+Robo Maker - This provides the env for interaction. Basically the virtual env with which the car interacts
+
+The sage maker using RL forms a model that is saved in amazon S3, this model is used by RoboMaker (with works with Gazebo - a physics engine) to create a virtual simulation
+
+Every run is an episode that might either be a success or failure.
+for each episode, the course is divided into *STEPS or SEGMENTS*
+This is cached in redis as an experience
+
+# Parameters and Hyperparameters
+Parameters - Internal to the model and can be learned from training
+Hyperparameters - External to the model and set by you before training
+
+Progress - Percentage of the track complete. A progress of 100 indicates that the lap is completed.
+Steps - Number of steps completed. One step is one state, action, next state, reward tuple.
+Steering Angle - positive angles (+) indicate going left, and negative angles (-) indicate going right. 
+closest waypoints - params['closest_waypoints'][0] returns the nearest previous waypoint index, and params['closest_waypoints'][1] returns the nearest next waypoint index. 
+
+## Reward functions
+
+1) Basic - eg. distance_from_center
+2) Advanced - eg. distance_from_center + something like steering
+
+## Hyperparameters
+
+set before training your model
+1) Batch Size - how much training data model should work through before update
+2) Number of epochs - how mnay times the algo will pass through batch data set before update
+3) Learning Rate - Controls the speed at which the algo learns. If more, it will not reach optimal solution, if less it will take longer to learn. default - 0.001
+4) Exploration - balance between exploitation and exploration. Exploitation is following the same path depending on already known information. Exploration is to gather additional data -  to find high reward path than the one we have
+	Categorical(discrete), epsilon (continuous)
+5) Entropy - Randomness degree - affects exploration
+6) Discount factor - extent to which future rewards will affect expected rewards. Larger - looks further into future
+7) Loss type - Huber vs Mean Squared Error
+	for small updates they are similar. as updates get larger huber takes small increments compared to mean squared error
+	convergence problems - use huber loss type
+8) Epiosodes - number of tasks model will take during training. 
+
+## Ideal Solution
+
+Play with basic alg, then check what can be made better and then act on it.
