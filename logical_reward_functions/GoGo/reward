@@ -1,0 +1,62 @@
+def distance_from_center(params):
+    '''
+    Example of rewarding the agent to follow center line
+    '''
+    
+    # Read input parameters
+    track_width = params['track_width']
+    distance_from_center = params['distance_from_center']
+
+    # Calculate 3 markers that are increasingly further away from the center line
+    marker_1 = 0.1 * track_width
+    marker_2 = 0.25 * track_width
+    marker_3 = 0.5 * track_width
+
+    # Give higher reward if the car is closer to center line and vice versa
+    if distance_from_center <= marker_1:
+        reward = 1
+    elif distance_from_center <= marker_2:
+        reward = 0.5
+    elif distance_from_center <= marker_3:
+        reward = 0.1
+    else:
+        reward = 1e-3  # likely crashed/ close to off track
+
+    return reward
+    
+# helper
+import math
+
+def get_angle_between_points(pointA, pointB):
+    track_direction = math.atan2(pointB[1] - pointA[1], pointB[0] - pointA[0])
+    # Convert to degree
+    return math.degrees(track_direction)
+
+def get_distance_between_points(pointA, pointC):
+    return math.sqrt((pointC[0] - pointA[0])^2 + (pointC[1] - pointA[1])^2)
+
+def get_direction_diff(pointA, pointB, pointC):
+    # Calculate the difference between the track direction and the heading direction of the car
+    direction_diff = abs(get_angle_between_points(pointA, pointB) - get_angle_between_points(pointB, pointC))
+    if direction_diff > 180:
+        direction_diff = 360 - direction_diff
+
+    return direction_diff
+    
+def straight_line(params):
+    ## wp span
+    waypoints = params['waypoints']
+    closest_waypoints = params['closest_waypoints']
+    pointA = waypoints[closest_waypoints[1]]
+    pointB = waypoints[closest_waypoints[1]+5]
+    pointC = waypoints[closest_waypoints[1]+10]
+    
+    ## calculate the angle
+    angle = get_direction_diff(pointA, pointB, pointC)
+    
+    if(angle < 20):
+        pointB_ = ((pointA[0] + pointC[0]) / 2, (pointA[1] + pointC[1]) / 2)
+        dist = get_distance_between_points(pointB_, pointB)
+        return (dist < params['track_width']/2)
+        
+    
