@@ -53,16 +53,22 @@ def straight_line(params):
     
     ## calculate the angle
     angle = get_direction_diff(pointA, pointB, pointC)
+    print("angle - ", angle)
     
     if(angle < 20):
         pointB_ = ((pointA[0] + pointC[0]) / 2, (pointA[1] + pointC[1]) / 2)
         dist = get_distance_between_points(pointB_, pointB)
+        print("dist = ", dist)
+        print("track width = ", params['track_width']/2)
         return (dist < params['track_width']/2)
+    else:
+        return False
         
-
+a = [(635,655), (783,494), (877,294)]
+b = [(880,291), (848,138), (608,125)]
 params = {
-    'track_width': 2,
-    'waypoints': [(10,10), (15,15), (20,20)],
+    'track_width': 90,
+    'waypoints': b,
     'closest_waypoints': [0]
 }
 
