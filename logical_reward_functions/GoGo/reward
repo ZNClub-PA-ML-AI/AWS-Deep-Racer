@@ -33,7 +33,7 @@ def get_angle_between_points(pointA, pointB):
     return math.degrees(track_direction)
 
 def get_distance_between_points(pointA, pointC):
-    return math.sqrt((pointC[0] - pointA[0])^2 + (pointC[1] - pointA[1])^2)
+    return math.sqrt((pointC[0] - pointA[0])**2 + (pointC[1] - pointA[1])**2)
 
 def get_direction_diff(pointA, pointB, pointC):
     # Calculate the difference between the track direction and the heading direction of the car
@@ -47,9 +47,9 @@ def straight_line(params):
     ## wp span
     waypoints = params['waypoints']
     closest_waypoints = params['closest_waypoints']
-    pointA = waypoints[closest_waypoints[1]]
-    pointB = waypoints[closest_waypoints[1]+5]
-    pointC = waypoints[closest_waypoints[1]+10]
+    pointA = waypoints[closest_waypoints[0]]
+    pointB = waypoints[closest_waypoints[0]+1]
+    pointC = waypoints[closest_waypoints[0]+2]
     
     ## calculate the angle
     angle = get_direction_diff(pointA, pointB, pointC)
@@ -59,4 +59,14 @@ def straight_line(params):
         dist = get_distance_between_points(pointB_, pointB)
         return (dist < params['track_width']/2)
         
-    
+
+params = {
+    'track_width': 2,
+    'waypoints': [(10,10), (15,15), (20,20)],
+    'closest_waypoints': [0]
+}
+
+print(straight_line(params))
+
+
+
