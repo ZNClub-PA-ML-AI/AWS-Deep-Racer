@@ -8,5 +8,6 @@ Important links
 ## Racing Tricks
 
 - [Racing line: How to drive faster in a closed circuit along the corners/ curves](https://driver61.com/uni/racing-line/#:~:text=The%20racing%20line%20is%20the,of%20car%20is%20being%20driven)
+- [Racing Line : Discovering Race Lines in DeepRacer Track Geometries](https://github.com/cdthompson/deepracer-k1999-race-lines)
 - [Sample Study By Matthew Suntup](https://github.com/MatthewSuntup/DeepRacer)
 - [An Advanced Guide to AWS Deep Racer](https://towardsdatascience.com/an-advanced-guide-to-aws-deepracer-2b462c37eea)
