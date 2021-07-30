@@ -1,0 +1,12 @@
+Findings from training on 30th July, 2021.
+
+Model 4 - {SAC, Mean squared} - off track for all 5 laps, on right edge, failed to take the right turn at the end
+Model 3 - {SAC, Huber} - off track for 4 laps, failed to take the right turn at the end
+Model 2 - {PPO, Mean squared} - On track for 4 laps, a bit slow
+Model 1 - {PPO, Huber} - On track for all 5 laps, super slow
+
+Functions to optimize for Model 1 - 
+	1. goes zig-zag a lot during straight lines.
+	2. speed is less for even straight lines.
+	3. speed and steering angle action space to be optimized.
+	4. hyperparameters to be tried and tested.
