@@ -11,3 +11,4 @@ Important links
 - [Racing Line : Discovering Race Lines in DeepRacer Track Geometries](https://github.com/cdthompson/deepracer-k1999-race-lines)
 - [Sample Study By Matthew Suntup](https://github.com/MatthewSuntup/DeepRacer)
 - [An Advanced Guide to AWS Deep Racer](https://towardsdatascience.com/an-advanced-guide-to-aws-deepracer-2b462c37eea)
+- [We chose to add sub-rewards rather than multiply them, based on the experience of Daniel Gonzalez shared in](https://towardsdatascience.com/an-advanced-guide-to-aws-deepracer-2b462c37eea)
