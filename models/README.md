@@ -1,1 +1,1 @@
-# All Model Paramaters
+# All Model Parameters
