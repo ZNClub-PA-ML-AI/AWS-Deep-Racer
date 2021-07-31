@@ -1,0 +1,104 @@
+import math
+import numpy as np
+def reward_function(params):
+
+    
+
+    FUTURE_STEP = 6
+    TURN_THRESHOLD_ANGLE = 12    
+    SPEED_THRESHOLD_SLOW = 1.8  
+    SPEED_THRESHOLD_FAST = 2   
+
+
+    FUTURE_STEP_STRAIGHT = 8
+    TURN_THRESHOLD_STRAIGHT = 10   
+    STEERING_THRESHOLD = 11       
+
+    TOTAL_NUM_STEPS = 675 # (15 steps per second, therefore < 45 secs)
+
+    # Read input parameters
+    all_wheels_on_track = params['all_wheels_on_track']
+    closest_waypoints = params['closest_waypoints']
+    distance_from_center = params['distance_from_center']
+    is_offtrack = params['is_offtrack']
+    progress = params['progress']
+    speed = params['speed']
+    steering_angle = params['steering_angle']
+    steps = params['steps']
+    track_width = params['track_width']
+    waypoints = params['waypoints']
+
+
+    def find_curve(waypoints, closest_waypoints, future_step):
+     
+        point_prev = waypoints[closest_waypoints[0]]
+        point_next = waypoints[closest_waypoints[1]]
+        #TBD
+        point_future = waypoints[min(len(waypoints) - 1,closest_waypoints[1] + future_step)]
+   
+        heading_current = math.degrees(math.atan2(point_prev[1]-point_next[1],point_prev[0] - point_next[0]))
+        heading_future = math.degrees(math.atan2(point_prev[1] - point_future[1], point_prev[0] - point_future[0]))
+
+        diff_heading = abs(heading_current - heading_future)
+     
+        if diff_heading > 180:diff_heading = 360 - diff_heading
+       
+        dist_future = np.linalg.norm([point_next[0] - point_future[0],point_next[1] - point_future[1]])  
+
+        return diff_heading, dist_future
+
+
+    def select_speed(waypoints, closest_waypoints, future_step):
+        
+        diff_heading, dist_future = find_curve(waypoints,closest_waypoints,future_step)
+        #TBD
+        if diff_heading < TURN_THRESHOLD_ANGLE:     
+            go_fast = True
+        else:   
+            go_fast = False
+
+        return go_fast
+
+
+    def select_straight(waypoints, closest_waypoints, future_step):
+      
+        diff_heading, dist_future = find_curve(waypoints,closest_waypoints,future_step)
+
+        if diff_heading < TURN_THRESHOLD_STRAIGHT:
+            go_straight = True
+        else:
+            go_straight = False
+
+        return go_straight
+
+
+    if is_offtrack:
+        reward = 1e-3
+        return float(reward)
+    
+ 
+    reward = 1 - (distance_from_center/(track_width/2))**(1/4) 
+
+    
+    if (steps % 50) == 0 and progress/100 > (steps/TOTAL_NUM_STEPS):
+        reward += progress - (steps/TOTAL_NUM_STEPS)*100
+
+   
+    stay_straight = select_straight(waypoints, closest_waypoints,FUTURE_STEP_STRAIGHT)
+    
+    if stay_straight and abs(steering_angle) < STEERING_THRESHOLD:
+        reward += 0.3
+
+    go_fast = select_speed(waypoints, closest_waypoints, FUTURE_STEP)
+
+    if go_fast and speed > SPEED_THRESHOLD_FAST and abs(steering_angle) < STEERING_THRESHOLD:
+        reward += 2.0
+
+    elif not go_fast and speed < SPEED_THRESHOLD_SLOW:
+        reward += 0.5    
+ 
+    if not all_wheels_on_track:
+        reward -= 0.5
+
+    reward = max(reward, 1e-3)
+    return float(reward)
