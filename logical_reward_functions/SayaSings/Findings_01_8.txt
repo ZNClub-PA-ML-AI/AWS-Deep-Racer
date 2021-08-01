@@ -1,0 +1,35 @@
+Findings from training on 30th July, 2021.
+
+Model 4 - {SAC, Mean squared} - off track for all 5 laps, on right edge, failed to take the right turn at the end
+Model 3 - {SAC, Huber} - off track for 4 laps, failed to take the right turn at the end
+Model 2 - {PPO, Mean squared} - On track for 4 laps, a bit slow
+Model 1 - {PPO, Huber} - On track for all 5 laps, super slow
+
+Functions to optimize for Model 1 - 
+	1. goes zig-zag a lot during straight lines.
+	2. speed is less for even straight lines.
+	3. speed and steering angle action space to be optimized.
+	4. hyperparameters to be tried and tested.
+
+
+Findings from training on 31st July, 2021. (finalized model 1 for further optimization)
+
+Model 1-4 - {action space change, changed threshold angle} - off track for 3 laps.
+Model 1-3 - {action space change, changed stay straight rewards} - off track for 1 lap, min speed - 26s 
+Model 1-2 - {action space change, learning rate 10^-5} - 40s
+Model 1-1 - {action space change} - superfast but 95%, 17 secs
+
+Findings from training on 1st August 2021.
+
+Model 1-3-clone - {clone of 1-3} - off track for 1 lap, min speed - 26s.
+Model 1-1-3 - {action space speed 1.5}, default, off track for all 5 laps
+Model 1-1-2 - {action space speed 1.5}- SPEED_THRESHOLD_FAST, rewards, grad batch size - 128 - off track, eliminated 
+Model 1-1-1 - {action space speed 1.5}- SPEED_THRESHOLD_FAST, rewards - 87%, 12 secs, all tracks
+
+Findings from training on 1st August 2021. (finalized model 1-1-1 for further optimization)
+
+Model 1-1-1-4 - {TBD}
+Model 1-1-1-3 - {TBD}
+Model 1-1-1-2 - {clone of Model 1-1-1}, grad batch size - 32
+Model 1-1-1-1 - {clone of Model 1-1-1}
+
