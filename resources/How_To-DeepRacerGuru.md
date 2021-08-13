@@ -26,4 +26,5 @@ python -m src.main.guru
 ```
 - Once UI has opened
   - Select folder where all models' logs are present by: File -> Switch director
+  - Import and load model by: File -> New file
   - View and Select model by: File -> Open file
